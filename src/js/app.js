@@ -45,7 +45,7 @@ export default function () {
   }
 
   const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(10, 10, 4980);
+  light.position.set(10, 10, 4970);
   light.intensity = 20; // 광원의 밝기 증가
   light.color.set(0xffffff); // 흰색 광원
   scene.add(light);
@@ -61,11 +61,15 @@ export default function () {
       curveSegments: 16,
     });
 
+    textGeometry.computeBoundingBox();
+    const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+    const textHeight = textGeometry.boundingBox.max.y - textGeometry.boundingBox.min.y;
+
     const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xaaaaaa }); // 텍스트 색상
     textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     // 텍스트 초기 위치
-    textMesh.position.set(-100, 0, 4920); // X, Y, Z 위치 설정
+    textMesh.position.set(-textWidth / 2, -textHeight / 2, 4840); // X, Y, Z 위치 설정
     const edges = new THREE.EdgesGeometry(textGeometry); // 윤곽선 생성
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 윤곽선 색상 (검정)
     const lineSegments = new THREE.LineSegments(edges, lineMaterial);
@@ -79,8 +83,8 @@ export default function () {
     requestAnimationFrame(animate);
 
     if (textMesh) {
-      textMesh.position.y += 0.1; // Y축으로 이동
-      textMesh.rotation.z = Math.PI * 0.01; // 약간의 기울기 추가
+      textMesh.position.y += 0.2; // Y축으로 이동
+      textMesh.rotation.z = 0.01; // 약간의 기울기 추가
     }
 
     renderer.render(scene, camera);
