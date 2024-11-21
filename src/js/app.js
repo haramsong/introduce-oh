@@ -20,6 +20,20 @@ export default function () {
   document.body.appendChild(renderer.domElement);
   camera.position.z = 5000;
 
+  const listener = new THREE.AudioListener();
+  camera.add(listener);
+
+  const sound = new THREE.Audio(listener);
+  const audioLoader = new THREE.AudioLoader();
+  audioLoader.load('/src/assets/audios/Star_Wars_Imperial_March.mp3', (buffer) => {
+    if (buffer) {
+      console.log('Audio loaded successfully');
+      sound.setBuffer(buffer);
+      sound.setLoop(true);
+      sound.setVolume(0.3);
+      sound.play(); // 오디오 재생
+    }
+  });
   const fireworks = [];
 
   fireworks.update = function () {
@@ -90,6 +104,9 @@ export default function () {
 
 
   function handleMouseDown() {
+    if (!sound.isPlaying) {
+      sound.play(); // 사용자 상호작용으로 오디오 재생
+    }
     const firework = new Firework({
       x: Math.random() < 0.5 ? -1500 : 1500,
       y: THREE.MathUtils.randFloatSpread(500),
