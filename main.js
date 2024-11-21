@@ -1,6 +1,3 @@
-import app from './src/js/app';
+import init from './src/js/app';
 
-
-window.addEventListener('load', function() {
-    app();
-  });
+init();
