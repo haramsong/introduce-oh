@@ -150,7 +150,7 @@ export default function () {
       setTimeout(() => {
         audio.stop(); // 완전히 중지
         audio.play(); // 다시 재생
-        audio.setVolume(0.3); // 원래 볼륨 복원
+        audio.setVolume(0.4); // 원래 볼륨 복원
       }, duration * 1000); // duration을 밀리초로 변환
     } else {
       // GainNode가 없는 경우 바로 재생
@@ -168,9 +168,6 @@ export default function () {
 
     scene.add(firework.points);
     fadeOutAndPlay(fireworkSound, 0.5)
-
-    fireworkSound.play()
-
     fireworks.push(firework);
   }
 
