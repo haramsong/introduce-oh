@@ -45,7 +45,7 @@ export default function () {
   audioLoader.load('/src/assets/audios/firework.mp3', (buffer) => {
     if (buffer) {
       fireworkSound.setBuffer(buffer);
-      fireworkSound.setVolume(1);
+      fireworkSound.setVolume(0.2);
     }
   });
   const fireworks = [];
@@ -134,6 +134,31 @@ export default function () {
 
   startRandomIntervalEvent();
 
+  function fadeOutAndPlay(audio, duration = 1) {
+    const gain = audio.gain; // THREE.Audio 내부 GainNode 접근
+    if (gain) {
+      const currentTime = audio.context.currentTime;
+
+      // 기존 볼륨 조정 취소 및 현재 값으로 시작
+      gain.gain.cancelScheduledValues(currentTime);
+      gain.gain.setValueAtTime(gain.gain.value, currentTime);
+
+      // 볼륨을 0으로 페이드아웃
+      gain.gain.linearRampToValueAtTime(0, currentTime + duration);
+
+      // 페이드아웃 완료 후 stop 및 재생
+      setTimeout(() => {
+        audio.stop(); // 완전히 중지
+        audio.play(); // 다시 재생
+        audio.setVolume(0.3); // 원래 볼륨 복원
+      }, duration * 1000); // duration을 밀리초로 변환
+    } else {
+      // GainNode가 없는 경우 바로 재생
+      audio.stop();
+      audio.play();
+    }
+  }
+
 
   function addFirework() {
     const firework = new Firework({
@@ -142,10 +167,18 @@ export default function () {
     });
 
     scene.add(firework.points);
-    // fireworkSound.play()
+    fadeOutAndPlay(fireworkSound, 1)
+
+    fireworkSound.play()
 
     fireworks.push(firework);
   }
 
   window.addEventListener('resize', handleResize);
+
+  document.body.addEventListener('click', () => {
+    if (sound.context.state === 'suspended') {
+      sound.context.resume(); // 오디오 컨텍스트 활성화
+    }
+  });
 }
