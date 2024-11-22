@@ -17,6 +17,9 @@ export default function () {
   );
 
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0';
+  renderer.domElement.style.zIndex = '-1';
   document.body.appendChild(renderer.domElement);
   camera.position.z = 5000;
 

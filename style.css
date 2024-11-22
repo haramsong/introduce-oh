@@ -1,8 +1,48 @@
+@font-face {
+  font-family: "AggroFont";
+  src: url("/src/assets/fonts/SB_Aggro_Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 * {
   box-sizing: border-box;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.logo_area {
+  font-size: 1rem;
+  font-family: "AggroFont", Arial, sans-serif;
+  color: #ffffff;
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.github-icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px #dddddd);
 }
