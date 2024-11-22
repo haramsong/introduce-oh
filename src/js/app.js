@@ -167,7 +167,7 @@ export default function () {
     });
 
     scene.add(firework.points);
-    fadeOutAndPlay(fireworkSound, 1)
+    fadeOutAndPlay(fireworkSound, 0.5)
 
     fireworkSound.play()
 
