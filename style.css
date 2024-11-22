@@ -29,13 +29,27 @@ header {
   z-index: 10;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .logo_area {
   font-size: 1rem;
   font-family: "AggroFont", Arial, sans-serif;
   color: #ffffff;
 }
 
+.logo_area:hover {
+  cursor: pointer;
+}
+
+.button_area {
+  flex-direction: row;
+}
+
+.button_area a {
+  text-decoration: none;
+}
+
 .github-icon {
+  margin: 0 5px;
   width: 24px;
   height: 24px;
   filter: invert(1);
@@ -45,4 +59,22 @@ header {
 .github-icon:hover {
   transform: scale(1.2);
   filter: drop-shadow(0 0 5px #dddddd);
+}
+
+.sound-icon {
+  margin-left: 5px;
+  width: 24px;
+  height: 24px;
+  filter: invert(0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.sound-icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px #ffffff);
+}
+
+.sound-icon.active {
+  filter: invert(1);
+  transition: all 0.3s ease-in-out;
 }

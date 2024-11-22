@@ -23,6 +23,8 @@ export default function () {
   document.body.appendChild(renderer.domElement);
   camera.position.z = 5000;
 
+  let soundControl = false;
+
   const listener = new THREE.AudioListener();
   camera.add(listener);
 
@@ -34,7 +36,6 @@ export default function () {
       sound.setBuffer(buffer);
       sound.setLoop(true);
       sound.setVolume(0.3);
-      sound.play(); // 오디오 재생
     }
   });
 
@@ -48,6 +49,8 @@ export default function () {
       fireworkSound.setVolume(0.2);
     }
   });
+  camera.remove(fireworkListener)
+
   const fireworks = [];
 
   fireworks.update = function () {
@@ -135,6 +138,7 @@ export default function () {
   startRandomIntervalEvent();
 
   function fadeOutAndPlay(audio, duration = 1) {
+    if (!soundControl) return;
     const gain = audio.gain; // THREE.Audio 내부 GainNode 접근
     if (gain) {
       const currentTime = audio.context.currentTime;
@@ -166,16 +170,42 @@ export default function () {
       y: THREE.MathUtils.randFloatSpread(3000),
     });
 
+    fadeOutAndPlay(fireworkSound, 0.1)
     scene.add(firework.points);
-    fadeOutAndPlay(fireworkSound, 0.5)
     fireworks.push(firework);
+    if (fireworks.length > 5) {
+      fireworks.shift();
+    }
   }
 
   window.addEventListener('resize', handleResize);
 
-  document.body.addEventListener('click', () => {
-    if (sound.context.state === 'suspended') {
-      sound.context.resume(); // 오디오 컨텍스트 활성화
+  const soundIcon = document.querySelector('.sound-icon');
+
+  function toggleSoundIcon(isActive) {
+    if (isActive) {
+      soundControl = true
+      sound.play(); // 사운드 재생
+      soundIcon.classList.add('active'); // 활성화 클래스 추가
+    } else {
+      soundControl = false
+      sound.pause(); // 사운드 재생
+      soundIcon.classList.remove('active'); // 클래스 제거
+    }
+  }
+
+  // 클릭 이벤트에 `active` 토글 적용
+  soundIcon.addEventListener('click', () => {
+    if (soundIcon.classList.contains('active')) {
+      toggleSoundIcon(false); // 비활성화 표시
+    } else {
+      toggleSoundIcon(true); // 활성화 표시
     }
   });
+
+  var logo = document.querySelector(".logo_area");
+
+  logo.addEventListener('click', () => {
+    window.location.reload();
+  })
 }
