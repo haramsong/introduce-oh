@@ -34,6 +34,17 @@ export default function () {
       sound.play(); // 오디오 재생
     }
   });
+
+  const fireworkListener = new THREE.AudioListener();
+  camera.add(fireworkListener);
+
+  const fireworkSound = new THREE.Audio(fireworkListener);
+  audioLoader.load('/src/assets/audios/firework.mp3', (buffer) => {
+    if (buffer) {
+      fireworkSound.setBuffer(buffer);
+      fireworkSound.setVolume(1);
+    }
+  });
   const fireworks = [];
 
   fireworks.update = function () {
@@ -106,21 +117,32 @@ export default function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
+  function startRandomIntervalEvent() {
+    function triggerEvent() {
+      const randomDelay = Math.random() * 1000 + 1000; // 1000~2000ms (1~2초)
+      addFirework()
 
-  function handleMouseDown() {
-    if (!sound.isPlaying) {
-      sound.play(); // 사용자 상호작용으로 오디오 재생
+      // 다음 이벤트를 위한 타이머 설정
+      setTimeout(triggerEvent, randomDelay);
     }
+
+    triggerEvent(); // 초기 호출
+  }
+
+  startRandomIntervalEvent();
+
+
+  function addFirework() {
     const firework = new Firework({
-      x: Math.random() < 0.5 ? -1500 : 1500,
-      y: THREE.MathUtils.randFloatSpread(500),
+      x: Math.random() < 0.5 ? -3500 : 3500,
+      y: THREE.MathUtils.randFloatSpread(3000),
     });
 
     scene.add(firework.points);
+    // fireworkSound.play()
 
     fireworks.push(firework);
   }
 
   window.addEventListener('resize', handleResize);
-  window.addEventListener('mousedown', handleMouseDown);
 }
