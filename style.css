@@ -72,6 +72,7 @@ header {
 .sound-icon:hover {
   transform: scale(1.2);
   filter: drop-shadow(0 0 5px #ffffff);
+  cursor: pointer;
 }
 
 .sound-icon.active {

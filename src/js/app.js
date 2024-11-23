@@ -30,7 +30,7 @@ export default function () {
 
   const sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
-  audioLoader.load('/src/assets/audios/Star_Wars_Imperial_March.mp3', (buffer) => {
+  audioLoader.load('/src/assets/audios/oh_gospel.mp3', (buffer) => {
     if (buffer) {
       console.log('Audio loaded successfully');
       sound.setBuffer(buffer);
@@ -46,7 +46,7 @@ export default function () {
   audioLoader.load('/src/assets/audios/firework.mp3', (buffer) => {
     if (buffer) {
       fireworkSound.setBuffer(buffer);
-      fireworkSound.setVolume(0.2);
+      fireworkSound.setVolume(0.06);
     }
   });
   camera.remove(fireworkListener)
@@ -73,8 +73,8 @@ export default function () {
   fontLoader.load('/src/assets/fonts/SB_Aggro_Bold.json', (font) => {
     const textGeometry = new TextGeometry(chronology, {
       font: font,
-      size: 20, // 텍스트 크기
-      height: 5, // 텍스트 깊이
+      size: 6.5, // 텍스트 크기
+      height: 0.5, // 텍스트 깊이
       curveSegments: 16,
     });
 
@@ -86,7 +86,7 @@ export default function () {
     textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     // 텍스트 초기 위치
-    textMesh.position.set(-textWidth / 2, -textHeight / 2, 4840); // X, Y, Z 위치 설정
+    textMesh.position.set(-textWidth / 2, -textHeight / 3, 4840); // X, Y, Z 위치 설정
     const edges = new THREE.EdgesGeometry(textGeometry); // 윤곽선 생성
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 윤곽선 색상 (검정)
     const lineSegments = new THREE.LineSegments(edges, lineMaterial);
@@ -100,8 +100,8 @@ export default function () {
     requestAnimationFrame(animate);
 
     if (textMesh) {
-      textMesh.position.y += 0.2; // Y축으로 이동
-      textMesh.rotation.z = 0.01; // 약간의 기울기 추가
+      textMesh.position.y += 0.08; // Y축으로 이동
+      textMesh.rotation.z = 0.005; // 약간의 기울기 추가
     }
 
     renderer.render(scene, camera);
@@ -154,7 +154,7 @@ export default function () {
       setTimeout(() => {
         audio.stop(); // 완전히 중지
         audio.play(); // 다시 재생
-        audio.setVolume(0.4); // 원래 볼륨 복원
+        audio.setVolume(0.05); // 원래 볼륨 복원
       }, duration * 1000); // duration을 밀리초로 변환
     } else {
       // GainNode가 없는 경우 바로 재생
