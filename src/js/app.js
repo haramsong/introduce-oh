@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import Firework from "./firework";
+import Firework from "@/js/firework.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
-import { chronology } from "/src/chronology";
+import { chronology } from "@/chronology.js";
 
 export default function () {
   const renderer = new THREE.WebGLRenderer({
@@ -30,7 +30,7 @@ export default function () {
 
   const sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
-  audioLoader.load('/src/assets/audios/oh_gospel.mp3', (buffer) => {
+  audioLoader.load('/assets/audios/oh_gospel.mp3', (buffer) => {
     if (buffer) {
       console.log('Audio loaded successfully');
       sound.setBuffer(buffer);
@@ -43,7 +43,7 @@ export default function () {
   camera.add(fireworkListener);
 
   const fireworkSound = new THREE.Audio(fireworkListener);
-  audioLoader.load('/src/assets/audios/firework.mp3', (buffer) => {
+  audioLoader.load('/assets/audios/firework.mp3', (buffer) => {
     if (buffer) {
       fireworkSound.setBuffer(buffer);
       fireworkSound.setVolume(0.06);
@@ -70,7 +70,7 @@ export default function () {
 
   let textMesh;
   const fontLoader = new FontLoader();
-  fontLoader.load('/src/assets/fonts/SB_Aggro_Bold.json', (font) => {
+  fontLoader.load('/assets/fonts/SB_Aggro_Bold.json', (font) => {
     const textGeometry = new TextGeometry(chronology, {
       font: font,
       size: 6.5, // 텍스트 크기

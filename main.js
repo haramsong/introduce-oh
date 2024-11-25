@@ -1,3 +1,3 @@
-import init from './src/js/app';
+import init from '@/js/app';
 
 init();

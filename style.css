@@ -1,6 +1,6 @@
 @font-face {
   font-family: "AggroFont";
-  src: url("/src/assets/fonts/SB_Aggro_Bold.ttf") format("truetype");
+  src: url("/assets/fonts/SB_Aggro_Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }

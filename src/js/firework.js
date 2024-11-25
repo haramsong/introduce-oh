@@ -28,7 +28,7 @@ export default class Firework {
         particlesGeometry.setFromPoints(this.particles);
 
         const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('./src/assets/textures/particle.png');
+        const texture = textureLoader.load('./assets/textures/particle.png');
 
         const particlesMaterial = new THREE.PointsMaterial({
             size: 1,
