@@ -8,7 +8,7 @@ export default class Firework {
         this.particles = [];
 
         for (let i = 0; i < count; i++) {
-            const particle = new THREE.Vector3(x, y, -1000);
+            const particle = new THREE.Vector3(x, y, -500);
 
             // 균등한 구형 분포를 위해 난수를 생성
             const theta = Math.random() * Math.PI * 2; // 0 ~ 2π
@@ -28,7 +28,7 @@ export default class Firework {
         particlesGeometry.setFromPoints(this.particles);
 
         const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('./assets/textures/particle.png');
+        const texture = textureLoader.load('/assets/textures/particle.png');
 
         const particlesMaterial = new THREE.PointsMaterial({
             size: 1,
