@@ -28,6 +28,24 @@ export default function () {
   const listener = new THREE.AudioListener();
   camera.add(listener);
 
+  let resourcesLoaded = 0;
+const totalResources = 3; // 총 로딩해야 할 리소스 개수
+
+function checkResourcesLoaded() {
+  resourcesLoaded += 1;
+  if (resourcesLoaded === totalResources) {
+    hideLoadingSpinner(); // 모든 리소스가 로딩되면 스피너 숨기기
+    startRandomIntervalEvent();
+  }
+}
+
+function hideLoadingSpinner() {
+  const spinner = document.getElementById('loading-spinner');
+  if (spinner) {
+    spinner.style.display = 'none'; // 스피너 숨기기
+  }
+}
+
   const sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
   audioLoader.load('/assets/audios/oh_gospel.mp3', (buffer) => {
@@ -36,6 +54,7 @@ export default function () {
       sound.setBuffer(buffer);
       sound.setLoop(true);
       sound.setVolume(0.3);
+      checkResourcesLoaded();
     }
   });
 
@@ -47,6 +66,7 @@ export default function () {
     if (buffer) {
       fireworkSound.setBuffer(buffer);
       fireworkSound.setVolume(0.06);
+      checkResourcesLoaded();
     }
   });
   camera.remove(fireworkListener)
@@ -86,18 +106,22 @@ export default function () {
     textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     // 텍스트 초기 위치
-    textMesh.position.set(-textWidth / 2, -textHeight / 3, 4840); // X, Y, Z 위치 설정
+    textMesh.position.set(-textWidth / 2, -textHeight / 3.5, 4840); // X, Y, Z 위치 설정
     const edges = new THREE.EdgesGeometry(textGeometry); // 윤곽선 생성
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 윤곽선 색상 (검정)
     const lineSegments = new THREE.LineSegments(edges, lineMaterial);
     textMesh.add(lineSegments); // 텍스트에 윤곽선 추가
 
+    checkResourcesLoaded();
+
     scene.add(textMesh);
   });
 
+  let lastFireworkTime = 0;
+
   // 애니메이션
   function animate() {
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animate); // 반복 호출
 
     if (textMesh) {
       textMesh.position.y += 0.09; // Y축으로 이동
@@ -125,8 +149,12 @@ export default function () {
 
   function startRandomIntervalEvent() {
     function triggerEvent() {
+      const now = Date.now();
       const randomDelay = Math.random() * 1000 + 1000; // 1000~2000ms (1~2초)
-      addFirework()
+      if (now - lastFireworkTime > randomDelay) {
+        addFirework();
+        lastFireworkTime = now;
+      }
 
       // 다음 이벤트를 위한 타이머 설정
       setTimeout(triggerEvent, randomDelay);
@@ -134,8 +162,6 @@ export default function () {
 
     triggerEvent(); // 초기 호출
   }
-
-  startRandomIntervalEvent();
 
   function fadeOutAndPlay(audio, duration = 1) {
     if (!soundControl) return;
