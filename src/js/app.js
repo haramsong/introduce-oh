@@ -29,22 +29,23 @@ export default function () {
   camera.add(listener);
 
   let resourcesLoaded = 0;
-const totalResources = 3; // 총 로딩해야 할 리소스 개수
+  const totalResources = 3; // 총 로딩해야 할 리소스 개수
 
-function checkResourcesLoaded() {
-  resourcesLoaded += 1;
-  if (resourcesLoaded === totalResources) {
-    hideLoadingSpinner(); // 모든 리소스가 로딩되면 스피너 숨기기
-    startRandomIntervalEvent();
+  function checkResourcesLoaded() {
+    resourcesLoaded += 1;
+    if (resourcesLoaded === totalResources) {
+      hideLoadingSpinner(); // 모든 리소스가 로딩되면 스피너 숨기기
+      animate();
+      startRandomIntervalEvent();
+    }
   }
-}
 
-function hideLoadingSpinner() {
-  const spinner = document.getElementById('loading-spinner');
-  if (spinner) {
-    spinner.style.display = 'none'; // 스피너 숨기기
+  function hideLoadingSpinner() {
+    const spinner = document.getElementById('loading-spinner');
+    if (spinner) {
+      spinner.style.display = 'none'; // 스피너 숨기기
+    }
   }
-}
 
   const sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
@@ -65,7 +66,7 @@ function hideLoadingSpinner() {
   audioLoader.load('/assets/audios/firework.mp3', (buffer) => {
     if (buffer) {
       fireworkSound.setBuffer(buffer);
-      fireworkSound.setVolume(0.06);
+      fireworkSound.setVolume(0.3);
       checkResourcesLoaded();
     }
   });
@@ -132,7 +133,6 @@ function hideLoadingSpinner() {
   }
 
   render();
-  animate();
 
   function render() {
     fireworks.update();
@@ -152,7 +152,7 @@ function hideLoadingSpinner() {
       const now = Date.now();
       const randomDelay = Math.random() * 1000 + 1000; // 1000~2000ms (1~2초)
       if (now - lastFireworkTime > randomDelay) {
-        addFirework();
+        addFirework()
         lastFireworkTime = now;
       }
 
@@ -195,12 +195,16 @@ function hideLoadingSpinner() {
       x: Math.random() < 0.5 ? -3500 : 3500,
       y: THREE.MathUtils.randFloatSpread(3000),
     });
+    fadeOutAndPlay(fireworkSound, 0.3)
 
-    fadeOutAndPlay(fireworkSound, 0.1)
-    scene.add(firework.points);
-    fireworks.push(firework);
-    if (fireworks.length > 5) {
-      fireworks.shift();
+    if (document.visibilityState === 'visible') {
+      scene.add(firework.points);
+      fireworks.push(firework);
+      if (fireworks.length > 5) {
+        fireworks.shift();
+      }
+    } else {
+      scene.remove(firework.points)
     }
   }
 
