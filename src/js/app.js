@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Firework from "@/js/firework.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
-import { chronology } from "@/chronology.js";
+import { mobile_chronology, chronology } from "@/chronology.js";
 
 export default function () {
   const renderer = new THREE.WebGLRenderer({
@@ -15,6 +15,46 @@ export default function () {
     1,
     10000,
   );
+
+  let cameraZPosition;
+  let heightScale;
+  let textSize;
+  let fireworkPosition;
+  let fireworkXRandom;
+  let chronologyText
+
+  if (window.innerWidth <= 500) {
+    cameraZPosition = 4780
+    heightScale = 7
+    textSize = 5.5
+    fireworkPosition = 1000
+    fireworkXRandom = 100
+    chronologyText = mobile_chronology
+  } else if (window.innerWidth > 500 && window.innerWidth <= 750) {
+    cameraZPosition = 4800
+    heightScale = 7
+    textSize = 6
+    fireworkPosition = 1500
+    fireworkXRandom = 300
+    chronologyText = mobile_chronology
+  }
+  else if (window.innerWidth > 750 && window.innerWidth <= 1024) {
+    cameraZPosition = 4820
+    heightScale = 7
+    textSize = 8
+    fireworkPosition = 2500
+    fireworkXRandom = 300
+    chronologyText = mobile_chronology
+  } else {
+    cameraZPosition = 4840
+    heightScale = 4
+    textSize = 6.5
+    fireworkPosition = 4000
+    fireworkXRandom = 500
+    chronologyText = chronology
+  }
+
+  console.log(window.innerWidth)
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.domElement.style.position = 'absolute';
@@ -92,9 +132,9 @@ export default function () {
   let textMesh;
   const fontLoader = new FontLoader();
   fontLoader.load('/assets/fonts/SB_Aggro_Bold.json', (font) => {
-    const textGeometry = new TextGeometry(chronology, {
+    const textGeometry = new TextGeometry(chronologyText, {
       font: font,
-      size: 6.5, // 텍스트 크기
+      size: textSize, // 텍스트 크기
       height: 0.5, // 텍스트 깊이
       curveSegments: 16,
     });
@@ -107,7 +147,7 @@ export default function () {
     textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     // 텍스트 초기 위치
-    textMesh.position.set(-textWidth / 2, -textHeight / 3.5, 4840); // X, Y, Z 위치 설정
+    textMesh.position.set(-textWidth / 2, -textHeight / heightScale, cameraZPosition); // X, Y, Z 위치 설정
     const edges = new THREE.EdgesGeometry(textGeometry); // 윤곽선 생성
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 윤곽선 색상 (검정)
     const lineSegments = new THREE.LineSegments(edges, lineMaterial);
@@ -192,7 +232,7 @@ export default function () {
 
   function addFirework() {
     const firework = new Firework({
-      x: Math.random() < 0.5 ? -4000 + THREE.MathUtils.randFloatSpread(500) : 4000 + THREE.MathUtils.randFloatSpread(500),
+      x: Math.random() < 0.5 ? -fireworkPosition + THREE.MathUtils.randFloatSpread(fireworkXRandom) : fireworkPosition + THREE.MathUtils.randFloatSpread(fireworkXRandom),
       y: THREE.MathUtils.randFloatSpread(5000),
     });
     fadeOutAndPlay(fireworkSound, 0.1)
