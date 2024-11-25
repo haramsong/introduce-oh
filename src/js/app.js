@@ -125,7 +125,7 @@ export default function () {
     requestAnimationFrame(animate); // 반복 호출
 
     if (textMesh) {
-      textMesh.position.y += 0.09; // Y축으로 이동
+      textMesh.position.y += 0.13; // Y축으로 이동
       textMesh.rotation.z = 0.005; // 약간의 기울기 추가
     }
 
