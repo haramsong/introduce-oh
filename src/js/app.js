@@ -67,8 +67,7 @@ export default function () {
     fireworkPosition = 3500
     fireworkXRandom = 400
     chronologyText = chronology
-  }
-   else {
+  } else {
     cameraZPosition = 4840
     heightScale = 6
     textSize = 6.5
@@ -76,8 +75,6 @@ export default function () {
     fireworkXRandom = 500
     chronologyText = chronology
   }
-
-  console.log(window.innerWidth)
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.domElement.style.position = 'absolute';
