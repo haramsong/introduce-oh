@@ -160,7 +160,7 @@ export default function () {
       font: font,
       size: textSize, // 텍스트 크기
       height: 0.5, // 텍스트 깊이
-      curveSegments: 16,
+      curveSegments: 6,
     });
 
     textGeometry.computeBoundingBox();
@@ -176,6 +176,7 @@ export default function () {
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 윤곽선 색상 (검정)
     const lineSegments = new THREE.LineSegments(edges, lineMaterial);
     textMesh.add(lineSegments); // 텍스트에 윤곽선 추가
+    textMesh.frustumCulled = true;
 
     checkResourcesLoaded();
 
