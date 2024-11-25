@@ -25,14 +25,14 @@ export default function () {
 
   if (window.innerWidth <= 500) {
     cameraZPosition = 4780
-    heightScale = 7
+    heightScale = 8
     textSize = 5.5
     fireworkPosition = 1000
     fireworkXRandom = 100
     chronologyText = mobile_chronology
   } else if (window.innerWidth > 500 && window.innerWidth <= 750) {
     cameraZPosition = 4800
-    heightScale = 7
+    heightScale = 10
     textSize = 6
     fireworkPosition = 1500
     fireworkXRandom = 300
@@ -40,14 +40,37 @@ export default function () {
   }
   else if (window.innerWidth > 750 && window.innerWidth <= 1024) {
     cameraZPosition = 4820
-    heightScale = 7
+    heightScale = 14
     textSize = 8
     fireworkPosition = 2500
     fireworkXRandom = 300
     chronologyText = mobile_chronology
-  } else {
+  } else if (window.innerWidth > 1024 && window.innerWidth <= 1150) {
+    cameraZPosition = 4770
+    heightScale = 4.5
+    textSize = 6
+    fireworkPosition = 3000
+    fireworkXRandom = 300
+    chronologyText = chronology
+  } else if (window.innerWidth > 1150 && window.innerWidth <= 1300) {
+    cameraZPosition = 4805
+    heightScale = 5
+    textSize = 6
+    fireworkPosition = 3000
+    fireworkXRandom = 300
+    chronologyText = chronology
+  }  
+  else if (window.innerWidth > 1300 && window.innerWidth <= 1600) {
+    cameraZPosition = 4820
+    heightScale = 6
+    textSize = 6
+    fireworkPosition = 3500
+    fireworkXRandom = 400
+    chronologyText = chronology
+  }
+   else {
     cameraZPosition = 4840
-    heightScale = 4
+    heightScale = 6
     textSize = 6.5
     fireworkPosition = 4000
     fireworkXRandom = 500
