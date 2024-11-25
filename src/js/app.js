@@ -5,9 +5,13 @@ import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { mobile_chronology, chronology } from "@/chronology.js";
 
 export default function () {
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
   const renderer = new THREE.WebGLRenderer({
-    antialias: true,
+    antialias: !isMobile, // 모바일에서는 안티앨리어싱 비활성화
   });
+  renderer.setPixelRatio(window.devicePixelRatio);
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -144,7 +148,7 @@ export default function () {
 
   const light = new THREE.PointLight(0xffffff, 1);
   light.position.set(10, 10, 4970);
-  light.intensity = 20; // 광원의 밝기 증가
+  light.intensity = 10; // 광원의 밝기 증가
   light.color.set(0xffffff); // 흰색 광원
   scene.add(light);
 
@@ -179,17 +183,27 @@ export default function () {
   });
 
   let lastFireworkTime = 0;
+  let lastFrameTime = 0;
+  let lastTextUpdateTime = 0;
+  const textUpdateInterval = 30;
+  const fps = 30;
+  const frameInterval = 1000 / fps;
 
   // 애니메이션
   function animate() {
-    requestAnimationFrame(animate); // 반복 호출
+    const now = Date.now();
+    const delta = now - lastFrameTime;
 
-    if (textMesh) {
+    if (textMesh && now - lastTextUpdateTime > textUpdateInterval) {
       textMesh.position.y += 0.13; // Y축으로 이동
       textMesh.rotation.z = 0.005; // 약간의 기울기 추가
     }
 
-    renderer.render(scene, camera);
+    if (delta > frameInterval) {
+      renderer.render(scene, camera);
+      lastFrameTime = now - (delta % frameInterval);
+    }
+    requestAnimationFrame(animate); // 반복 호출
   }
 
   render();
@@ -261,7 +275,8 @@ export default function () {
       scene.add(firework.points);
       fireworks.push(firework);
       if (fireworks.length > 5) {
-        fireworks.shift();
+        const oldFirework = fireworks.shift();
+        scene.remove(oldFirework.points);
       }
     } else {
       scene.remove(firework.points)
@@ -275,23 +290,36 @@ export default function () {
   function toggleSoundIcon(isActive) {
     if (isActive) {
       soundControl = true
-      sound.play(); // 사운드 재생
-      soundIcon.classList.add('active'); // 활성화 클래스 추가
+      sound.play().catch(err => {
+        console.error("Failed to play audio:", err);
+      }); // 사운드 재생
     } else {
       soundControl = false
       sound.pause(); // 사운드 재생
-      soundIcon.classList.remove('active'); // 클래스 제거
     }
   }
 
   // 클릭 이벤트에 `active` 토글 적용
   soundIcon.addEventListener('click', () => {
     if (soundIcon.classList.contains('active')) {
+      soundIcon.classList.remove('active'); // 클래스 제거
       toggleSoundIcon(false); // 비활성화 표시
     } else {
+      soundIcon.classList.add('active'); // 활성화 클래스 추가
       toggleSoundIcon(true); // 활성화 표시
     }
   });
+
+  soundIcon.addEventListener('click', () => {
+  const audioContext = THREE.AudioContext.getContext();
+  if (audioContext.state === 'suspended') {
+    audioContext.resume().then(() => {
+      console.log('Audio context resumed');
+    }).catch(err => {
+      console.error('Failed to resume audio context:', err);
+    });
+  }
+}, { once: true });
 
   var logo = document.querySelector(".logo_area");
 
