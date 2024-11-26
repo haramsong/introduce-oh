@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "dist": "npx serve dist",
     "preview": "vite preview",
     "dist": "npx serve dist",
     "lint": "npx eslint src",

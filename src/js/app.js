@@ -25,10 +25,11 @@ export default function () {
   let textSize;
   let fireworkPosition;
   let fireworkXRandom;
-  let chronologyText
+  let chronologyText;
+  let lightZPosition;
 
   if (window.innerWidth <= 500) {
-    cameraZPosition = 4780
+    cameraZPosition = 4820
     heightScale = 8
     textSize = 5.5
     fireworkPosition = 1000
@@ -79,6 +80,8 @@ export default function () {
     fireworkXRandom = 500
     chronologyText = chronology
   }
+
+  lightZPosition = cameraZPosition + 30;
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.domElement.style.position = 'absolute';
@@ -147,8 +150,8 @@ export default function () {
   }
 
   const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(10, 10, 4970);
-  light.intensity = 10; // 광원의 밝기 증가
+  light.position.set(10, 10, lightZPosition);
+  light.intensity = 25; // 광원의 밝기 증가
   light.color.set(0xffffff); // 흰색 광원
   scene.add(light);
 
@@ -282,6 +285,9 @@ export default function () {
     } else {
       scene.remove(firework.points)
     }
+    setTimeout(() => {
+      scene.remove(firework.points)
+    }, 3000); // duration을 밀리초로 변환
   }
 
   window.addEventListener('resize', handleResize);
