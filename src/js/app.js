@@ -29,16 +29,17 @@ export default function () {
   let lightZPosition;
 
   if (window.innerWidth <= 1024) {
+    cameraZPosition = window.innerWidth / 5 + 4685
     chronologyText = mobile_chronology
+    heightScale = 6.5 + window.innerWidth / 170
   } else {
+    cameraZPosition = window.innerWidth / 8 + 4625
     chronologyText = chronology
+    heightScale = 6.5
   }
-
-  cameraZPosition = window.innerWidth / 9 + 4680
-    heightScale = 6
-    textSize = 6.5
-    fireworkPosition = window.innerWidth / 2 + 3000
-    fireworkXRandom = 4 * window.innerWidth / 5 + 100
+  textSize = 6.5
+  fireworkPosition = window.innerWidth * 2 + 1000
+  fireworkXRandom = 4 * window.innerWidth / 5 + 100
 
   lightZPosition = cameraZPosition + 30;
 
@@ -277,15 +278,15 @@ export default function () {
   });
 
   soundIcon.addEventListener('click', () => {
-  const audioContext = THREE.AudioContext.getContext();
-  if (audioContext.state === 'suspended') {
-    audioContext.resume().then(() => {
-      console.log('Audio context resumed');
-    }).catch(err => {
-      console.error('Failed to resume audio context:', err);
-    });
-  }
-}, { once: true });
+    const audioContext = THREE.AudioContext.getContext();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume().then(() => {
+        console.log('Audio context resumed');
+      }).catch(err => {
+        console.error('Failed to resume audio context:', err);
+      });
+    }
+  }, { once: true });
 
   var logo = document.querySelector(".logo_area");
 
