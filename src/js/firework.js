@@ -3,7 +3,7 @@ import * as THREE from 'three';
 export default class Firework {
     constructor({ x, y }) {
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-        const count = isMobile ? 15000 + Math.round(Math.random() * 100) : 60000 + Math.round(Math.random() * 3000);
+        const count = isMobile ? 20000 + Math.round(Math.random() * 100) : 60000 + Math.round(Math.random() * 3000);
         const velocity = 50 + Math.random() * 1.5; // 기본 속도
         const particlesGeometry = new THREE.BufferGeometry();
         this.particles = [];
