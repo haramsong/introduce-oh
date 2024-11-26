@@ -35,7 +35,7 @@ export default function () {
   } else {
     cameraZPosition = window.innerWidth / 8 + 4625
     chronologyText = chronology
-    heightScale = 6.5
+    heightScale = 2 + window.innerWidth / 400
   }
   textSize = 6.5
   fireworkPosition = window.innerWidth * 2 + 1000
