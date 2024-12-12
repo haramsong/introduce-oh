@@ -4,16 +4,14 @@ export default class Firework {
     constructor({ x, y }) {
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
         const count = isMobile ? 20000 + Math.round(Math.random() * 100) : 60000 + Math.round(Math.random() * 3000);
-        const velocity = 50 + Math.random() * 1.5; // 기본 속도
+        const velocity = 50 + Math.random() * 1.5;
         const particlesGeometry = new THREE.BufferGeometry();
         this.particles = [];
 
         for (let i = 0; i < count; i++) {
             const particle = new THREE.Vector3(x, y, -500);
-
-            // 균등한 구형 분포를 위해 난수를 생성
-            const theta = Math.random() * Math.PI * 2; // 0 ~ 2π
-            const phi = Math.acos(1 - 2 * Math.random()); // 균등 분포
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(1 - 2 * Math.random());
 
             const vX = velocity * Math.sin(phi) * Math.cos(theta);
             const vY = velocity * Math.sin(phi) * Math.sin(theta);

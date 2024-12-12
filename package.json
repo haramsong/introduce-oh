@@ -10,7 +10,6 @@
     "build": "vite build",
     "dist": "npx serve dist",
     "preview": "vite preview",
-    "dist": "npx serve dist",
     "lint": "npx eslint src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
@@ -28,9 +27,6 @@
     "vite-plugin-glsl": "^1.0.2"
   },
   "dependencies": {
-    "dat.gui": "^0.7.9",
-    "gsap": "^3.11.0",
-    "lil-gui": "^0.20.0",
     "three": "^0.156.1"
   }
 }
