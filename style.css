@@ -110,8 +110,9 @@ header {
   text-align: center;
 }
 .profile-header img {
-  width: 415px;
-  height: 738px;
+  aspect-ratio: 9 / 16;
+  width: 90%;
+  max-width: 500px;
   border: 3px solid #333;
 }
 .profile-header h1 {
@@ -189,7 +190,7 @@ header {
 }
 .modal-content {
   background: white;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   width: 70%;
   min-width: 430px;
