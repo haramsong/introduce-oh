@@ -13,6 +13,7 @@
         <h1>오승학</h1>
       </div>
       <div class="button_area">
+        <img class="wiki-icon" src="/assets/icons/wiki.svg" onclick="openModal()" />
         <a href="https://github.com/dhtmdgkr123" target="_blank">
           <img class="github-icon" src="/assets/icons/github-mark.svg" />
         </a>
@@ -21,5 +22,104 @@
     </header>
     <script type="module" src="./main.js"></script>
     <div id="loading-spinner" class="spinner"></div>
+
+    <div class="modal" id="profileModal">
+      <div class="modal-content">
+        <div class="close-btn">
+            <img width="24" height="24" src="/assets/icons/close_button.svg" onclick="closeModal()" />
+        </div>
+        <div class="container">
+            <div class="profile-header">
+                <img src="/assets/images/seunghak.png" alt="Profile Picture">
+                <h1>오승학</h1>
+                <p>대한민국의 개발자</p>
+            </div>
+
+            <table class="profile-table">
+                <tr>
+                    <td>본명</td>
+                    <td>오승학(吳昇學, Oh Seunghak)</td>
+                </tr>
+                <tr>
+                    <td>출생</td>
+                    <td>1995.12.20</td>
+                </tr>
+                <tr>
+                    <td>본관</td>
+                    <td>해주 오씨</td>
+                </tr>
+                <tr>
+                    <td>국적</td>
+                    <td>대한민국</td>
+                </tr>
+                <tr>
+                    <td>직업</td>
+                    <td>개발자</td>
+                </tr>
+                <tr>
+                    <td>MBTI</td>
+                    <td>INTJ</td>
+                </tr>
+                <tr>
+                    <td>가족</td>
+                    <td>아버지, 어머니, 동생 오준학(2001년 생)</td>
+                </tr>
+                <tr>
+                    <td>종교</td>
+                    <td>불교(약간)</td>
+                </tr>
+                <tr>
+                    <td>병역</td>
+                    <td>대한민국 해군 병장 소집해제</td>
+                </tr>
+                <tr>
+                    <td>닉네임</td>
+                    <td>dhtmdgkr123</td>
+                </tr>
+                <tr>
+                    <td>데뷔</td>
+                    <td>1995.12.19</td>
+                </tr>
+                <tr>
+                    <td colspan="2">관련 링크</td> 
+                </tr>
+                <tr>
+                    <td>Github</td>
+                    <td>
+                      <a href="https://github.com/dhtmdgkr123">https://github.com/dhtmdgkr123</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>LinkedIn</td>
+                    <td>
+                      <a href="https://www.linkedin.com/in/dhtmdgkr123">https://www.linkedin.com/in/dhtmdgkr123</a>
+                    </td>
+                </tr>
+            </table>
+
+          <div class="footer">
+            <div class="footer-content">
+                <p>&copy; haramsong / </p>
+                <span class="github-long-icon">
+                    <a href="https://github.com/haramsong">
+                        <img src="/assets/icons/github-mark.svg" alt="GitHub Logo" />
+                    </a>
+                </span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.sound-icon')
+
+        function openModal() {
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+    </script>
   </body>
 </html>

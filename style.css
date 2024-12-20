@@ -48,6 +48,19 @@ header {
   text-decoration: none;
 }
 
+.wiki-icon {
+  margin: 0 5px;
+  width: 22px;
+  height: 22px;
+  filter: invert(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.wiki-icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px #ffffff);
+}
+
 .github-icon {
   margin: 0 5px;
   width: 24px;
@@ -91,6 +104,122 @@ header {
   border-top: 5px solid #3498db;
   border-radius: 50%;
   animation: spin 2s linear infinite;
+}
+
+.profile-header {
+  text-align: center;
+}
+.profile-header img {
+  width: 415px;
+  height: 738px;
+  border: 3px solid #333;
+}
+.profile-header h1 {
+  margin: 10px 0 5px;
+}
+.profile-header p {
+  color: #777;
+}
+.profile-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+.profile-table th,
+.profile-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.profile-table td a {
+  text-decoration-line: none;
+}
+.profile-table th {
+  background-color: rgb(100, 65, 165);
+  font-weight: bold;
+}
+.profile-table td:first-child {
+  background-color: rgb(100, 65, 165); /* 원하는 색상 */
+  text-align: center;
+  color: white;
+  font-weight: bold; /* 선택적으로 강조 */
+}
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.footer-content {
+  display: flex;
+  align-items: start;
+  justify-content: center; /* 가운데 정렬 */
+  gap: 4px; /* 요소 간 간격 */
+}
+
+.footer-content p {
+  margin: 0; /* 여백 제거 */
+  justify-content: top; /* 가운데 정렬 */
+
+  font-size: 13px; /* 텍스트 크기 */
+  line-height: 13px;
+}
+
+.footer-content img {
+  height: 16px; /* 텍스트와 높이 맞춤 */
+}
+
+.github-long-icon {
+  display: inline-block;
+  justify-content: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-content {
+  background: white;
+  padding: 5px;
+  border-radius: 10px;
+  width: 70%;
+  min-width: 430px;
+  height: 90%;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(100, 65, 165, 0.1);
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgb(100, 65, 165);
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 65, 165, 0.8);
+}
+
+.close-btn {
+  display: block;
+  text-align: right;
+  margin-bottom: 10px;
+}
+.close-btn img {
+  cursor: pointer;
 }
 
 @keyframes spin {

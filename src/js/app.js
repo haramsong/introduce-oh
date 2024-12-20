@@ -157,7 +157,7 @@ export default function () {
     const delta = now - lastFrameTime;
 
     if (textMesh && now - lastTextUpdateTime > textUpdateInterval) {
-      textMesh.position.y += 0.13;
+      textMesh.position.y += 0.4;
       textMesh.rotation.z = 0.005;
     }
 
